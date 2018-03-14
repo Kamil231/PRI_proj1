@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <math.h>
-#include <limits>
+//#include <limits>
 #include <stdlib.h>
 
-double potegowanie(double x, int n)
+//funkcja obliczajaca potege algorytmem szybkiego potegowania, x - podstawa potegi, n - potega
+long double potegowanie(long double x, int n) 
 {
 	if (n == 0)
 		return 1;
@@ -11,18 +12,21 @@ double potegowanie(double x, int n)
 	if (n % 2 == 1) 
 		return x * potegowanie(x, n - 1);
 
-	long long w = potegowanie(x, n / 2);
+	long double w = potegowanie(x, n / 2);
 	return w * w;
 
 }
-long long int silnia(int n)
 
+//funkcja obliczajaca silnie rekurencyjnie
+long long int silnia(int n)
 {
 	if (n == 0)
 		return 1;
 	else
 		return(n * silnia(n - 1));
 }
+
+//funkcja przyjmujaca dokladnosc n, odrzuca liczby ujemne i inne niz ineger
 int podaj_n(){
 	char *w, q[100];
 	int n = -1;
@@ -46,36 +50,36 @@ int podaj_n(){
 
 void main(){
 
-	long long int imax = std::numeric_limits<long long int>::max();	// maksymalna wartosc zmiennej typu long long int
-	double dmax = std::numeric_limits<double>::max();				// maksymalna wartosc zmiennej typu double
+	//long long int imax = std::numeric_limits<long long int>::max();	// maksymalna wartosc zmiennej typu long long int
+	//double dmax = std::numeric_limits<double>::max();				// maksymalna wartosc zmiennej typu double
 
-	double x;						
+	long double x;						
 	printf("podaj x: \n");
-	scanf("%lf", &x);
+	scanf("%llf", &x);
 
 	int n;
 	n = podaj_n();
 	
-	double p;														// wartosc potegi
+	long double p;														// wartosc potegi
 	long long int s;												// wartosc silni
-	double coshx = 0;												// wartosc ciagu
+	long double coshx = 0;												// wartosc ciagu
 
 	for (int i = 0; i < n; i++){
 		p = potegowanie(x, 2 * i + 1);
 		s = silnia(2 * i + 1);
 		coshx = coshx + (1. / s) * p;								// suma pod kreska ulamkowa, za petla csch zostanie odwrocone
-		if (imax / (i + 1) < s || dmax / (2 * x) < p){				// sprawdza czy dla nastepnej petli nie zostanie przekrowczona max wartosc int lub double
+		/*if (imax / (i + 1) < s || dmax / (2 * x) < p){				// sprawdza czy dla nastepnej petli nie zostanie przekrowczona max wartosc int lub double
 			printf("W nastepnej iteracji przekroczona zostalaby maksymalna wartosc int lub double, koniec obliczen dla n = %d\n", i);
 			break;
-		}
+		}*/
 	}
 
 	coshx = 1 / coshx;
 
-	double coshxr = 2 / (exp(x) - exp(-x));							// csch rzeczywiste
-	double blad = ((coshx - coshxr) / coshxr)*100;					// blad w procentach
+	long double coshxr = 2 / (exp(x) - exp(-x));							// csch rzeczywiste
+	long double blad = ((coshx - coshxr) / coshxr)*100;					// blad w procentach
 
-	printf("Wartosc cschx obliczona z ciagu: = %lf \nWartosc rzeczywista cschx = %lf \n", coshx, coshxr);
-	printf("blad = %lf %%\n", blad);
+	printf("Wartosc cschx obliczona z ciagu: = %llf \nWartosc rzeczywista cschx = %llf \n", coshx, coshxr);
+	printf("blad = %llf %%\n", blad);
 
 }
