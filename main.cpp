@@ -37,7 +37,7 @@ int podaj_n(){
 			n = strtol(q, &w, 10);					// Do n przekazuje int z ciagu znakow q, do w reszte.
 			if (w == q || *w != '\n') {				// Jesli w ciagu znakow q nie bylo int to w == q, jesli pow wpisaniu inta wpisano cos innego niz enter to *w != '\n'
 				if (i > 0 )
-					printf("n musi byc calkowite, podaj n: \n", w, q);
+					printf("n musi byc calkowite, podaj n: \n");
 			}
 			else break;
 			i++;
@@ -55,7 +55,7 @@ void main(){
 
 	long double x;						
 	printf("podaj x: \n");
-	scanf("%llf", &x);
+	scanf("%Lf", &x);
 
 	int n;
 	n = podaj_n();
@@ -79,7 +79,7 @@ void main(){
 	long double coshxr = 2 / (exp(x) - exp(-x));							// csch rzeczywiste
 	long double blad = ((coshx - coshxr) / coshxr)*100;					// blad w procentach
 
-	printf("Wartosc cschx obliczona z ciagu: = %llf \nWartosc rzeczywista cschx = %llf \n", coshx, coshxr);
-	printf("blad = %llf %%\n", blad);
+	printf("Wartosc cschx obliczona z ciagu: = %Lf \nWartosc rzeczywista cschx = %Lf \n", coshx, coshxr);
+	printf("blad = %Lf %%\n", blad);
 
 }
